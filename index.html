@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Bomberland: bombas, mapas cheios de perigos e partidas online. Entre no teste fechado na Google Play.">
+<meta property="og:title" content="Bomberland">
+<meta property="og:description" content="Seja testador do Bomberland na Google Play.">
+<meta property="og:image" content="img/capa.jpg">
+<link rel="icon" href="img/logo.png">
+<title>Bomberland</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap">
+<style>
+  /* Layout: uma coluna de cima para baixo — logo e trailer, fotos do jogo, passos para virar testador. Visual de fliperama noturno, só tema escuro (como o jogo). */
+  :root {
+    --noite: #0b0a1f;
+    --painel: #17143a;
+    --linha: #2c2766;
+    --texto: #f4f2ff;
+    --suave: #b7b2e0;
+    --pavio: #ffb21a;
+    --fogo: #ff5a2a;
+    --ok: #3ddc84;
+    --fonte-titulo: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+    --fonte-texto: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--noite);
+    color: var(--texto);
+    font-family: var(--fonte-texto);
+    font-size: 17px;
+    line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    background-image:
+      radial-gradient(900px 600px at 10% -10%, rgba(123, 60, 255, 0.35), transparent 70%),
+      radial-gradient(800px 600px at 110% 30%, rgba(255, 90, 42, 0.22), transparent 70%);
+    background-repeat: no-repeat;
+  }
+  main { max-width: 1080px; margin: 0 auto; padding-block: 28px 64px; display: grid; gap: 72px; }
+  h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; letter-spacing: 0.3px; text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(30px, 5vw, 44px); line-height: 1.05; }
+  p { margin: 0; }
+  .destaque { color: var(--pavio); }
+
+  /* topo */
+  .topo { display: grid; gap: 22px; justify-items: center; text-align: center; }
+  .topo img.logo { width: min(560px, 90%); height: auto; filter: drop-shadow(0 14px 30px rgba(0,0,0,0.5)); }
+  .topo p.chamada { font-size: clamp(19px, 2.6vw, 23px); color: var(--suave); max-width: 640px; }
+  .topo p.chamada strong { color: var(--texto); }
+  .video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 22px; overflow: hidden; background: #000; border: 3px solid var(--linha); box-shadow: 0 30px 70px rgba(0,0,0,0.55); }
+  .video video { width: 100%; height: 100%; display: block; }
+  .ir-teste { display: inline-flex; align-items: center; gap: 10px; font-family: var(--fonte-titulo); font-size: 24px; color: #1a0f00; background: linear-gradient(180deg, #ffd25a, var(--pavio)); padding: 14px 30px 16px; border-radius: 18px; text-decoration: none; box-shadow: 0 6px 0 #b86f00; transition: transform .12s; }
+  .ir-teste:hover { transform: translateY(-2px); }
+  .ir-teste:focus-visible, .botao:focus-visible, .passo button:focus-visible { outline: 3px solid var(--texto); outline-offset: 3px; }
+
+  /* fotos */
+  .secao { display: grid; gap: 22px; }
+  .secao > p { color: var(--suave); max-width: 62ch; }
+  .fotos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .fotos figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+  .fotos img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; border: 2px solid var(--linha); display: block; }
+  .fotos figcaption { font-size: 15px; color: var(--suave); }
+  .fotos figcaption b { color: var(--texto); font-weight: 800; }
+  @media (max-width: 760px) { .fotos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 440px) { .fotos { grid-template-columns: minmax(0, 1fr); } }
+
+  /* passos */
+  .teste { background: var(--painel); border: 2px solid var(--linha); border-radius: 26px; padding: clamp(20px, 4vw, 40px); display: grid; gap: 26px; }
+  .passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: passo; }
+  .passo { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 16px; align-items: start; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.03); border: 2px solid transparent; }
+  .passo::before { counter-increment: passo; content: counter(passo); font-family: var(--fonte-titulo); font-size: 26px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--linha); color: var(--texto); }
+  .passo.ativo { border-color: var(--pavio); }
+  .passo.ativo::before { background: var(--pavio); color: #1a0f00; }
+  .passo.feito::before { content: "✓"; background: var(--ok); color: #06210f; }
+  .passo.bloqueado { opacity: 0.45; }
+  .passo h3 { font-size: 24px; margin-bottom: 4px; }
+  .passo p { color: var(--suave); }
+  .passo .acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .botao, .passo button { font-family: var(--fonte-texto); font-weight: 800; font-size: 16px; border-radius: 12px; padding: 11px 18px; border: 2px solid var(--pavio); cursor: pointer; text-decoration: none; display: inline-block; }
+  .botao.cheio { background: var(--pavio); color: #1a0f00; }
+  .passo button { background: transparent; color: var(--texto); border-color: var(--linha); }
+  .botao[aria-disabled="true"] { pointer-events: none; opacity: 0.5; }
+  .aviso { font-size: 15px; color: var(--suave); border-left: 4px solid var(--fogo); padding-left: 12px; }
+  footer { text-align: center; color: var(--suave); font-size: 14px; }
+  @media (prefers-reduced-motion: reduce) { .ir-teste { transition: none; } }
+</style>
+
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<main>
+  <header class="topo">
+    <img class="logo" src="img/logo.png" alt="Bomberland">
+    <p class="chamada"><strong>Bombas, mapas cheios de perigos e partidas online com até 4 jogadores.</strong> O Bomberland está em teste fechado na Google Play: entre para a turma de testadores e jogue antes de todo mundo.</p>
+    <div class="video">
+      <video id="trailer" controls playsinline preload="metadata" poster="img/capa.jpg" src="trailer.mp4"></video>
+    </div>
+    <a class="ir-teste" href="#testar">Quero testar o jogo</a>
+  </header>
+
+  <section class="secao" aria-labelledby="t-fotos">
+    <h2 id="t-fotos">Por dentro do <span class="destaque">jogo</span></h2>
+    <p>Tudo o que aparece aqui é do jogo de verdade, capturado no celular.</p>
+    <div class="fotos">
+      <figure><img src="img/partida.jpg" alt="Partida no mapa do Vulcão" loading="lazy"><figcaption><b>Cada um por si</b> no mapa do Vulcão</figcaption></figure>
+      <figure><img src="img/vs.jpg" alt="Tela de início da partida com os 4 personagens" loading="lazy"><figcaption><b>4 jogadores</b> por partida, online ou contra bots</figcaption></figure>
+      <figure><img src="img/gelo.jpg" alt="Tezca no mapa de Gelo com a bomba Bola de Natal" loading="lazy"><figcaption><b>Gelo</b>: bolas de neve caem do céu</figcaption></figure>
+      <figure><img src="img/doces.jpg" alt="Mapa Fábrica de Doces" loading="lazy"><figcaption><b>Fábrica de Doces</b>: esteiras e prensa de chocolate</figcaption></figure>
+      <figure><img src="img/montaria.jpg" alt="Personagem montado no sapo" loading="lazy"><figcaption><b>Montarias</b> com poderes: sapo, raposa, urso e mais</figcaption></figure>
+      <figure><img src="img/loja.jpg" alt="Loja com as skins dos personagens" loading="lazy"><figcaption><b>Loja</b> com personagens e skins</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="teste" id="testar" aria-labelledby="t-teste">
+    <h2 id="t-teste">Seja <span class="destaque">testador</span></h2>
+    <p class="aviso">Use o mesmo Gmail que está na Google Play do seu celular Android. Só esse e-mail consegue baixar o jogo enquanto ele estiver em teste.</p>
+    <ol class="passos">
+      <li class="passo ativo" id="p1">
+        <div>
+          <h3>Mande seu Gmail entrando no grupo</h3>
+          <p>Abra o grupo dos testadores e toque em <b>Participar do grupo</b>, logado com o Gmail da sua Google Play. É assim que seu e-mail chega até nós e entra na lista de testadores.</p>
+          <div class="acoes">
+            <a class="botao cheio" id="link-grupo" href="#" target="_blank" rel="noopener">Abrir o grupo de testadores</a>
+            <button type="button" id="ja-entrei">Já entrei no grupo</button>
+          </div>
+        </div>
+      </li>
+      <li class="passo bloqueado" id="p2">
+        <div>
+          <h3>Aceite o convite de teste</h3>
+          <p>Na página da Google Play que abrir, toque em <b>Tornar-se testador</b>. Pode levar alguns minutos para liberar depois que você entrou no grupo.</p>
+          <div class="acoes">
+            <a class="botao cheio" id="link-convite" href="https://play.google.com/apps/testing/com.bomberlandgame.app" target="_blank" rel="noopener" aria-disabled="true">Aceitar o convite</a>
+            <button type="button" id="ja-aceitei" disabled>Já aceitei</button>
+          </div>
+        </div>
+      </li>
+      <li class="passo bloqueado" id="p3">
+        <div>
+          <h3>Baixe o Bomberland</h3>
+          <p>Abra o jogo na Google Play e toque em <b>Instalar</b>. Se aparecer "item não encontrado", espere alguns minutos e tente de novo.</p>
+          <div class="acoes">
+            <a class="botao cheio" id="link-loja" href="https://play.google.com/store/apps/details?id=com.bomberlandgame.app" target="_blank" rel="noopener" aria-disabled="true">Abrir na Google Play</a>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <footer>Bomberland · jogo para Android</footer>
+</main>
+
+<script>
+  // Link do Grupo do Google dos testadores (o mesmo cadastrado na Play Console > Teste fechado > Testadores).
+  const LINK_GRUPO = "https://groups.google.com/g/testadore-bomberland";
+
+  const grupo = document.getElementById("link-grupo");
+  if (LINK_GRUPO) {
+    grupo.href = LINK_GRUPO;
+  } else {
+    grupo.textContent = "Grupo de testadores em breve";
+    grupo.setAttribute("aria-disabled", "true");
+  }
+  const marcar = (atual, proximo, liberar) => {
+    atual.classList.remove("ativo");
+    atual.classList.add("feito");
+    proximo.classList.remove("bloqueado");
+    proximo.classList.add("ativo");
+    liberar.forEach((el) => { el.removeAttribute("aria-disabled"); el.disabled = false; });
+  };
+  const p1 = document.getElementById("p1"), p2 = document.getElementById("p2"), p3 = document.getElementById("p3");
+  document.getElementById("ja-entrei").addEventListener("click", () =>
+    marcar(p1, p2, [document.getElementById("link-convite"), document.getElementById("ja-aceitei")]));
+  document.getElementById("ja-aceitei").addEventListener("click", () =>
+    marcar(p2, p3, [document.getElementById("link-loja")]));
+</script>
+
+</body>
+</html>
