@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Bomberland: bombas, mapas cheios de perigos e partidas online. Entre no teste fechado na Google Play.">
+<meta name="description" content="Bomberland: entre no teste fechado na Google Play, jogue em 7 dias e ganhe um personagem à sua escolha, para sempre.">
 <meta property="og:title" content="Bomberland">
-<meta property="og:description" content="Seja testador do Bomberland na Google Play.">
+<meta property="og:description" content="Seja testador do Bomberland e ganhe um personagem à sua escolha, até os lendários.">
 <meta property="og:image" content="img/capa.jpg">
 <link rel="icon" href="img/logo.png">
 <title>Bomberland</title>
@@ -85,6 +85,22 @@
   .passo button { background: transparent; color: var(--texto); border-color: var(--linha); }
   .botao[aria-disabled="true"] { pointer-events: none; opacity: 0.5; }
   .aviso { font-size: 15px; color: var(--suave); border-left: 4px solid var(--fogo); padding-left: 12px; }
+  /* presente de testador */
+  .presente { position: relative; border-radius: 26px; padding: clamp(22px, 4vw, 40px); display: grid; gap: 22px; border: 3px solid var(--pavio);
+    background: radial-gradient(700px 300px at 50% -20%, rgba(255, 178, 26, 0.22), transparent 70%), var(--painel); }
+  .presente .selo { justify-self: start; font-family: var(--fonte-titulo); font-size: 18px; letter-spacing: 0.5px; color: #1a0f00; background: var(--pavio); padding: 4px 14px 6px; border-radius: 999px; }
+  .presente h2 { font-size: clamp(32px, 5.4vw, 50px); }
+  .presente > p { color: var(--suave); font-size: 19px; max-width: 60ch; }
+  .presente > p b { color: var(--texto); }
+  .skins { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+  .skin { margin: 0; display: grid; gap: 6px; justify-items: center; text-align: center; min-width: 0; }
+  .skin img { width: 100%; max-width: 132px; aspect-ratio: 1; border-radius: 20px; border: 3px solid var(--cor, var(--linha)); background: #241d55; display: block; }
+  .skin figcaption { font-weight: 800; font-size: 15px; line-height: 1.2; }
+  .skin small { display: block; font-weight: 700; font-size: 12px; color: var(--cor, var(--suave)); letter-spacing: 0.4px; }
+  .skin.lendario { --cor: #ffd447; } .skin.epico { --cor: #c27bff; } .skin.raro { --cor: #3fd17a; }
+  .regras { margin: 0; padding-left: 20px; color: var(--suave); font-size: 15px; display: grid; gap: 4px; }
+  @media (max-width: 760px) { .skins { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 440px) { .skins { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   footer { text-align: center; color: var(--suave); font-size: 14px; }
   @media (prefers-reduced-motion: reduce) { .ir-teste { transition: none; } }
 </style>
@@ -95,12 +111,38 @@
 <main>
   <header class="topo">
     <img class="logo" src="img/logo.png" alt="Bomberland">
-    <p class="chamada"><strong>Bombas, mapas cheios de perigos e partidas online com até 4 jogadores.</strong> O Bomberland está em teste fechado na Google Play: entre para a turma de testadores e jogue antes de todo mundo.</p>
+    <p class="chamada"><strong>Bombas, mapas cheios de perigos e partidas online com até 4 jogadores.</strong> O Bomberland está em teste fechado na Google Play: entre para a turma de testadores, jogue antes de todo mundo e ganhe um personagem de presente.</p>
     <div class="video">
       <video id="trailer" controls playsinline preload="metadata" poster="img/capa.jpg" src="trailer.mp4"></video>
     </div>
-    <a class="ir-teste" href="#testar">Quero testar o jogo</a>
+    <a class="ir-teste" href="#presente">Quero testar e ganhar um personagem</a>
   </header>
+
+  <section class="presente" id="presente" aria-labelledby="t-presente">
+    <span class="selo">PRESENTE DE TESTADOR</span>
+    <h2 id="t-presente">Teste o jogo e <span class="destaque">ganhe um personagem</span> à sua escolha</h2>
+    <p>Jogue em <b>7 dias diferentes</b> durante o teste e escolha <b>qualquer personagem da loja</b>, até os lendários. Ele fica seu <b>para sempre</b>, inclusive depois do lançamento.</p>
+    <div class="skins">
+      <figure class="skin lendario"><img src="img/skins/breu.png" alt="Breu" loading="lazy" width="132" height="132"><figcaption>Breu<small>LENDÁRIO</small></figcaption></figure>
+      <figure class="skin lendario"><img src="img/skins/nebula.png" alt="Nébula" loading="lazy" width="132" height="132"><figcaption>Nébula<small>LENDÁRIO</small></figcaption></figure>
+      <figure class="skin lendario"><img src="img/skins/robo.png" alt="Pulse" loading="lazy" width="132" height="132"><figcaption>Pulse<small>LENDÁRIO</small></figcaption></figure>
+      <figure class="skin lendario"><img src="img/skins/robota.png" alt="Pixel" loading="lazy" width="132" height="132"><figcaption>Pixel<small>LENDÁRIO</small></figcaption></figure>
+      <figure class="skin epico"><img src="img/skins/caveira.png" alt="Spooky" loading="lazy" width="132" height="132"><figcaption>Spooky<small>ÉPICO</small></figcaption></figure>
+      <figure class="skin epico"><img src="img/skins/bruxa.png" alt="Salém" loading="lazy" width="132" height="132"><figcaption>Salém<small>ÉPICO</small></figcaption></figure>
+      <figure class="skin epico"><img src="img/skins/cururu.png" alt="Cururu" loading="lazy" width="132" height="132"><figcaption>Cururu<small>ÉPICO</small></figcaption></figure>
+      <figure class="skin epico"><img src="img/skins/flora.png" alt="Flora" loading="lazy" width="132" height="132"><figcaption>Flora<small>ÉPICO</small></figcaption></figure>
+      <figure class="skin raro"><img src="img/skins/pirata_m.png" alt="Pirata Cibernético" loading="lazy" width="132" height="132"><figcaption>Pirata Cibernético<small>RARO</small></figcaption></figure>
+      <figure class="skin raro"><img src="img/skins/pirata.png" alt="Rubi Tormenta" loading="lazy" width="132" height="132"><figcaption>Rubi Tormenta<small>RARO</small></figcaption></figure>
+      <figure class="skin raro"><img src="img/skins/tezca.png" alt="Tezca" loading="lazy" width="132" height="132"><figcaption>Tezca<small>RARO</small></figcaption></figure>
+      <figure class="skin raro"><img src="img/skins/itzel.png" alt="Itzel" loading="lazy" width="132" height="132"><figcaption>Itzel<small>RARO</small></figcaption></figure>
+    </div>
+    <ul class="regras">
+      <li>Vale só para quem joga durante o teste fechado, antes do lançamento oficial.</li>
+      <li>Contam as partidas online e as salas com bots. O Treino offline não conta.</li>
+      <li>Um personagem por conta. No jogo, toque em <b>Presente de testador</b> para acompanhar os dias e escolher.</li>
+    </ul>
+    <a class="ir-teste" href="#testar" style="justify-self:start">Quero ser testador</a>
+  </section>
 
   <section class="secao" aria-labelledby="t-fotos">
     <h2 id="t-fotos">Por dentro do <span class="destaque">jogo</span></h2>
@@ -146,6 +188,12 @@
           <div class="acoes">
             <a class="botao cheio" id="link-loja" href="https://play.google.com/store/apps/details?id=com.bomberlandgame.app" target="_blank" rel="noopener" aria-disabled="true">Abrir na Google Play</a>
           </div>
+        </div>
+      </li>
+      <li class="passo" id="p4">
+        <div>
+          <h3>Jogue em 7 dias e escolha seu personagem</h3>
+          <p>Uma partida online por dia já conta. No 7.º dia, toque em <b>Presente de testador</b> no menu do jogo e escolha o personagem que quiser.</p>
         </div>
       </li>
     </ol>
